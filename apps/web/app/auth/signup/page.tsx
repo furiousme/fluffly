@@ -8,7 +8,7 @@ const SignUpPage = () => {
   return (
     <div className="container relative min-h-screen flex items-center justify-center lg:max-w-none px-3">
       <Link
-        href="/examples/authentication"
+        href="/auth/login"
         className={cn(
           buttonVariants({ variant: "ghost" }),
           "absolute right-4 top-4 md:right-8 md:top-8"
