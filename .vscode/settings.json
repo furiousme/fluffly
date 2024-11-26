@@ -1,10 +1,13 @@
 {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "eslint.validate": ["javascript", "javascriptreact"],
-    "editor.formatOnSave": true,
-    "eslint.format.enable": true,
-    // Runs Prettier, then ESLint
-    "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
-    "vetur.validation.template": false,
-    "eslint.debug": true
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "eslint.validate": ["javascript", "javascriptreact"],
+  "editor.formatOnSave": true,
+  "eslint.format.enable": true,
+  // Runs Prettier, then ESLint
+  "editor.codeActionsOnSave": ["source.formatDocument", "source.fixAll.eslint"],
+  "vetur.validation.template": false,
+  "eslint.debug": true,
+  "[prisma]": {
+    "editor.defaultFormatter": "Prisma.prisma"
+  }
 }
