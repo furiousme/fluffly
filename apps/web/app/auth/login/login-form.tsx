@@ -1,5 +1,6 @@
-import Link from "next/link";
+"use client";
 
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
   CardContent,
@@ -11,16 +12,28 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Icons } from "@/components/ui/icons";
 import SubmitButton from "@/components/ui/submit-button";
+import { useActionState } from "react";
+import { loginAction } from "@/actions/login";
 
 const LoginForm = () => {
+  const [formState, action] = useActionState(loginAction, undefined);
+
+  const emailErrors = formState?.errors?.email;
+  const generalErrorMessage = formState?.message;
+
   return (
-    <div className="mx-auto max-w-sm">
+    <form action={action} className="mx-auto max-w-sm">
       <CardHeader>
         <CardTitle className="text-2xl text-center">Login</CardTitle>
         <CardDescription className="text-center">
           Enter your email below to login to your account
         </CardDescription>
       </CardHeader>
+      {!!generalErrorMessage && (
+        <p className="text-sm text-red-600 text-center">
+          {generalErrorMessage}
+        </p>
+      )}
       <CardContent>
         <div className="grid gap-4">
           <div className="grid gap-2">
@@ -29,8 +42,11 @@ const LoginForm = () => {
               id="email"
               type="email"
               placeholder="m@example.com"
-              required
+              name="email"
             />
+            {!!emailErrors?.length && (
+              <p className="text-red-600 italic text-sm">{emailErrors[0]}</p>
+            )}
           </div>
           <div className="grid gap-2">
             <div className="flex items-center">
@@ -39,7 +55,7 @@ const LoginForm = () => {
                 Forgot your password?
               </Link>
             </div>
-            <Input id="password" type="password" required />
+            <Input id="password" type="password" name="password" />
           </div>
           <SubmitButton className="w-full">Login</SubmitButton>
           <Button variant="outline" className="w-full">
@@ -58,7 +74,7 @@ const LoginForm = () => {
           </Link>
         </div>
       </CardContent>
-    </div>
+    </form>
   );
 };
 

@@ -1,15 +1,15 @@
 "use server";
 
 import config from "@/config";
-import { SignUpFormSchema } from "@/lib/schemas";
+import { LoginFormSchema } from "@/lib/schemas";
 import { FormState } from "@/types";
 import { redirect } from "next/navigation";
 
-export const signUpAction = async (
+export const loginAction = async (
   _: FormState,
   formData: FormData
 ): Promise<FormState> => {
-  const validationResult = SignUpFormSchema.safeParse({
+  const validationResult = LoginFormSchema.safeParse({
     email: formData.get("email"),
     password: formData.get("password"),
   });
@@ -21,20 +21,17 @@ export const signUpAction = async (
     };
   }
 
-  const response = await fetch(`${config.API_URL}/auth/signup`, {
+  const response = await fetch(`${config.API_URL}/auth/login`, {
     method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
+    headers: { "Content-Type": "application/json" },
     body: JSON.stringify(validationResult.data),
   });
 
   if (response.ok) {
-    redirect("/auth/login");
+    redirect("/profile");
   } else {
     return {
-      message:
-        response.status === 409 ? "User already exists." : response.statusText,
+      message: response.statusText,
     };
   }
 };

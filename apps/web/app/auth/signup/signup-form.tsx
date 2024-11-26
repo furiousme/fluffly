@@ -14,7 +14,7 @@ import { Input } from "@/components/ui/input";
 import SubmitButton from "@/components/ui/submit-button";
 import { Label } from "@radix-ui/react-label";
 import React, { useActionState } from "react";
-import { signUpAction } from "@/actions/auth";
+import { signUpAction } from "@/actions/sign-up";
 
 const SignUpForm = () => {
   const [formState, action] = useActionState(signUpAction, undefined);
@@ -34,7 +34,9 @@ const SignUpForm = () => {
             Enter your email below to create your account
           </CardDescription>
           {!!generalErrorMessage && (
-            <p className="text-sm text-red-600">{generalErrorMessage}</p>
+            <p className="text-sm text-red-600 text-center">
+              {generalErrorMessage}
+            </p>
           )}
         </CardHeader>
         <CardContent className="grid gap-4">

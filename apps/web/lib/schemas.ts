@@ -9,4 +9,9 @@ export const SignUpFormSchema = zod.object({
     .trim(),
 });
 
+export const LoginFormSchema = zod.object({
+  email: zod.string().email().trim(),
+  password: zod.string().trim(),
+});
+
 export type SignUpFormInput = zod.infer<typeof SignUpFormSchema>;
