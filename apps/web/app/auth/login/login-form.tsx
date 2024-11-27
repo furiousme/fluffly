@@ -22,7 +22,7 @@ const LoginForm = () => {
   const generalErrorMessage = formState?.message;
 
   return (
-    <form action={action} className="mx-auto max-w-sm">
+    <form action={action} className="mx-auto w-full">
       <CardHeader>
         <CardTitle className="text-2xl text-center">Login</CardTitle>
         <CardDescription className="text-center">
