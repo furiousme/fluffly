@@ -2,6 +2,7 @@
 
 import config from "@/config";
 import { LoginFormSchema } from "@/lib/schemas";
+import { createSession } from "@/lib/session";
 import { FormState } from "@/types";
 import { redirect } from "next/navigation";
 
@@ -28,7 +29,16 @@ export const loginAction = async (
   });
 
   if (response.ok) {
-    redirect("/profile");
+    const userData = await response.json();
+    createSession({
+      user: {
+        id: userData.id,
+        email: userData.email,
+      },
+      accessToken: userData.accessToken,
+      refreshToken: userData.refreshToken,
+    });
+    redirect("/");
   } else {
     return {
       message: response.statusText,

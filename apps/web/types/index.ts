@@ -7,3 +7,12 @@ export type FormState =
       };
     }
   | undefined;
+
+export type Session = {
+  user: {
+    id: number;
+    email: string;
+  };
+  accessToken: string;
+  refreshToken: string;
+};

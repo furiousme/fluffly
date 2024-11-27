@@ -17,5 +17,6 @@
       "cache": false,
       "persistent": true
     }
-  }
+  },
+  "globalEnv": ["API_URL, SESSION_SECRET_KEY"]
 }
