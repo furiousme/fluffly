@@ -7,6 +7,7 @@ import {
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { verify } from 'argon2';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -28,6 +29,12 @@ export class AuthService {
     if (!isPasswordValid)
       throw new UnauthorizedException('Invalid credentials');
     return { id: user.id, email: user.email };
+  }
+
+  async generateTokensPair(user: User) {
+    const accessToken = '123';
+    const refreshToken = '12345';
+    return { accessToken, refreshToken };
   }
 
   // findOne(id: number) {
