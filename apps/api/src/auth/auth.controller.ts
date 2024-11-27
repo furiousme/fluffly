@@ -6,9 +6,12 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
+  Req,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
+import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -19,10 +22,11 @@ export class AuthController {
     return this.authService.register(createUserDto);
   }
 
-  // @Get()
-  // findAll() {
-  //   return this.authService.findAll();
-  // }
+  @UseGuards(LocalAuthGuard)
+  @Post('login')
+  login(@Req() req) {
+    return req.user;
+  }
 
   // @Get(':id')
   // findOne(@Param('id') id: string) {
