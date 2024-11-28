@@ -12,6 +12,7 @@ import {
 import { AuthService } from './auth.service';
 import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LocalAuthGuard } from './guards/local-auth/local-auth.guard';
+import { JwtRefreshGuard } from './guards/jwt-refresh/jwt-refresh.guard';
 
 @Controller('auth')
 export class AuthController {
@@ -26,6 +27,19 @@ export class AuthController {
   @Post('login')
   async login(@Req() req) {
     const tokens = await this.authService.generateTokensPair(req.user);
+    return {
+      user: {
+        id: req.user.id,
+        email: req.user.email,
+      },
+      ...tokens,
+    };
+  }
+
+  @UseGuards(JwtRefreshGuard)
+  @Post('refresh')
+  async refresh(@Req() req) {
+    const tokens = await this.authService.refreshTokens(req.user);
     return {
       user: {
         id: req.user.id,

@@ -36,6 +36,7 @@ export class AuthService {
     return { id: user.id, email: user.email };
   }
 
+  // todo: pass only necessary fields instead of User
   async generateTokensPair(user: User) {
     const { id } = user;
     const [accessToken, refreshToken] = await Promise.all([
@@ -49,6 +50,16 @@ export class AuthService {
     const user = await this.userService.findOne(id);
     if (!user) throw new UnauthorizedException('User not found');
     return { id: user.id };
+  }
+
+  async validateJwtRefreshUser(id: string) {
+    const user = await this.userService.findOne(id);
+    if (!user) throw new UnauthorizedException('User not found');
+    return { id: user.id };
+  }
+
+  async refreshTokens(user: User) {
+    return this.generateTokensPair(user);
   }
 
   // findOne(id: number) {
