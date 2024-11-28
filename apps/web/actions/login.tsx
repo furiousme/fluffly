@@ -30,7 +30,7 @@ export const loginAction = async (
 
   if (response.ok) {
     const userData = await response.json();
-    createSession({
+    await createSession({
       user: {
         id: userData.id,
         email: userData.email,
