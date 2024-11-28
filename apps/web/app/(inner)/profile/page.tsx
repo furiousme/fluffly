@@ -1,3 +1,4 @@
+import { getProfile } from "@/actions/get-profile";
 import { AppSidebar } from "@/components/app-sidebar";
 import {
   Breadcrumb,
@@ -14,7 +15,10 @@ import {
   SidebarTrigger,
 } from "@/components/ui/sidebar";
 
-const ProfilePage = () => {
+const ProfilePage = async () => {
+  const response = await getProfile();
+  console.log({ response });
+
   return (
     <SidebarProvider>
       <AppSidebar />

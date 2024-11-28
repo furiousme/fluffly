@@ -16,12 +16,12 @@ export const loginAction = async (
   });
 
   if (!validationResult.success) {
-    console.log(validationResult.error.flatten().fieldErrors);
     return {
       errors: validationResult.error.flatten().fieldErrors,
     };
   }
 
+  // todo: handle failures
   const response = await fetch(`${config.API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

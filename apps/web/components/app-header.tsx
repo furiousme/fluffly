@@ -7,8 +7,8 @@ import { cn } from "@/lib/utils";
 function AppHeader() {
   return (
     <header className="flex gap-2 justify-between p-4 items-center">
-      <Link href="/" className="font-bold intalic underline font-4xl uppercase">
-        Fluffy
+      <Link href="/" className="font-bold hover font-4xl uppercase">
+        Fluffly
       </Link>
       <div className="flex gap-2">
         <Link

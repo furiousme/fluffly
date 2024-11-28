@@ -20,6 +20,7 @@ export const signUpAction = async (
     };
   }
 
+  // todo: handle failures
   const response = await fetch(`${config.API_URL}/auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
