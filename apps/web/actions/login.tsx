@@ -38,7 +38,7 @@ export const loginAction = async (
       accessToken: userData.accessToken,
       refreshToken: userData.refreshToken,
     });
-    redirect("/");
+    redirect("/profile");
   } else {
     return {
       message: response.statusText,

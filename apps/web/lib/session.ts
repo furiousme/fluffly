@@ -38,3 +38,7 @@ export const getSession = async () => {
     redirect("/login", RedirectType.replace);
   }
 };
+
+export const deleteSession = async () => {
+  (await cookies()).delete("session");
+};
