@@ -1,19 +1,24 @@
 import { UserService } from 'src/user/user.service';
 import {
   ConflictException,
+  Inject,
   Injectable,
   UnauthorizedException,
 } from '@nestjs/common';
 import { CreateUserDto } from '../user/dto/create-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
 import { verify } from 'argon2';
 import { User } from '@prisma/client';
+import { JwtService } from '@nestjs/jwt';
+import { ConfigType } from '@nestjs/config';
+import jwtRefreshConfig from 'src/configs/jwt-refresh.config';
 
 @Injectable()
 export class AuthService {
   constructor(
-    private readonly prisma: PrismaService,
     private readonly userService: UserService,
+    private readonly jwtService: JwtService,
+    @Inject(jwtRefreshConfig.KEY)
+    private readonly refreshTokenConfig: ConfigType<typeof jwtRefreshConfig>,
   ) {}
 
   async register(createUserDto: CreateUserDto) {
@@ -32,9 +37,18 @@ export class AuthService {
   }
 
   async generateTokensPair(user: User) {
-    const accessToken = '123';
-    const refreshToken = '12345';
+    const { id } = user;
+    const [accessToken, refreshToken] = await Promise.all([
+      this.jwtService.signAsync({ sub: id }),
+      this.jwtService.signAsync({ sub: id }, this.refreshTokenConfig),
+    ]);
     return { accessToken, refreshToken };
+  }
+
+  async validateJwtUser(id: string) {
+    const user = await this.userService.findOne(id);
+    if (!user) throw new UnauthorizedException('User not found');
+    return { id: user.id };
   }
 
   // findOne(id: number) {

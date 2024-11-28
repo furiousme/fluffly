@@ -28,12 +28,25 @@ export class UserService {
     });
   }
 
+  findOne(id: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
+  // will be extended in the future
+  findMe(id: string) {
+    return this.prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+  }
+
   // findAll() {
   //   return `This action returns all user`;
-  // }
-
-  // findOne(id: number) {
-  //   return `This action returns a #${id} user`;
   // }
 
   // update(id: number, updateUserDto: UpdateUserDto) {
